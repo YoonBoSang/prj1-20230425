@@ -33,4 +33,10 @@ public class BoardService {
 		int cnt = mapper.deleteById(id);
 		return cnt == 1;
 	}
+
+	public boolean add(Board board) {
+		int cnt = mapper.add(board);
+		return cnt == 1;
+	}
+
 }
