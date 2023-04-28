@@ -23,13 +23,13 @@ public class BoardController {
 //	게시물 목록
 //	@RequestMapping(value = {"/", "list"}, method = RequestMethod.GET)
 	@GetMapping({ "/", "list" })
-	public String list(Model model) {
+	public String list(Model model,@RequestParam(value = "page", defaultValue = "1") Integer page,@RequestParam(value = "search", defaultValue = "") String search) {
 		// 1. request param 수집/가공
 		// 2. business logic 처리
-		List<Board> list = service.listBoard();
+		Map<String, Object> result = service.listBoard(page, search); // 페이지 처리
 		// 3. add attribute
-		model.addAttribute("boardList", list);
-
+		model.addAttribute("boardList", result.get("boardList"));
+		model.addAttribute("pageInfo", result.get("pageInfo"));
 		// 4. forward/redirect
 		return "list";
 
