@@ -43,69 +43,59 @@
 		<div class="row">
 			<nav aria-label="Page navigation example">
 				<ul class="pagination justify-content-center">
-					<c:if test="${pageInfo.currentPageNum > 10 }">
-						<c:url value="/list" var="pageLink">
-							<c:param name="page" value="${pageInfo.currentPageNum - 10 }"></c:param>
-							<c:if test="${not empty param.search }">
-								<c:param name="search" value="${param.search }"></c:param>
-							</c:if>
-						</c:url>
-						<li class="page-item">
-							<a class="page-link" href="${pageLink }">
-								<i class="fa-solid fa-angles-left"></i>
-							</a>
-						</li>
+					<%-- 					<c:if test="${pageInfo.currentPageNum > 10 }"> --%>
+					<%-- 						<c:url value="/list" var="pageLink"> --%>
+					<%-- 							<c:param name="page" value="${pageInfo.currentPageNum - 10 }"></c:param> --%>
+					<%-- 							<c:if test="${not empty param.search }"> --%>
+					<%-- 								<c:param name="search" value="${param.search }"></c:param> --%>
+					<%-- 							</c:if> --%>
+					<%-- 							<c:if test="${not empty param.type }"> --%>
+					<%-- 								<c:param name="type" value=${param.type }></c:param> --%>
+					<%-- 							</c:if> --%>
+					<%-- 						</c:url> --%>
+					<!-- 						<li class="page-item"> -->
+					<%-- 							<a class="page-link" href="${pageLink }"> --%>
+					<!-- 								<i class="fa-solid fa-angles-left"></i> -->
+					<!-- 							</a> -->
+					<!-- 						</li> -->
+					<%-- 					</c:if> --%>
+					<!-- 이전 버튼 -->
+					<c:if test="${pageInfo.currentPageNum gt 1 }">
+						<my:pageItem pageNum="${pageInfo.currentPageNum - 1 }">
+							<i class="fa-solid fa-angle-left"></i>
+						</my:pageItem>
 					</c:if>
-					<c:if test="${pageInfo.currentPageNum > 1 }">
-						<c:url value="/list" var="pageLink">
-							<c:param name="page" value="${pageInfo.currentPageNum - 1 }"></c:param>
-							<c:if test="${not empty param.search }">
-								<c:param name="search" value="${param.search }"></c:param>
-							</c:if>
-						</c:url>
-						<li class="page-item">
-							<a class="page-link" href="${pageLink }">
-								<i class="fa-solid fa-angle-left"></i>
-							</a>
-						</li>
-					</c:if>
+
 					<c:forEach begin="${pageInfo.leftPageNum }" end="${pageInfo.rightPageNum }" var="pageNum">
-						<c:url value="/list" var="pageLink">
-							<c:param name="page" value="${pageNum }"></c:param>
-							<c:if test="${not empty param.search }">
-								<c:param name="search" value="${param.search }"></c:param>
-							</c:if>
-						</c:url>
-						<li class="page-item ${pageNum eq pageInfo.currentPageNum ? 'active' : '' }">
-							<a class="page-link" href="${pageLink }">${pageNum }</a>
-						</li>
+						<my:pageItem pageNum="${pageNum }">
+							${pageNum }
+						</my:pageItem>
 					</c:forEach>
-					<c:if test="${pageInfo.currentPageNum lt pageInfo.lastPageNum}">
-						<li class="page-item">
-							<c:url value="/list" var="pageLink">
-								<c:if test="${not empty param.search }">
-									<c:param name="search" value="${param.search }"></c:param>
-								</c:if>
-								<c:param name="page" value="${pageInfo.currentPageNum + 1}"></c:param>
-							</c:url>
-							<a class="page-link" href="${pageLink }">
-								<i class="fa-solid fa-angle-right"></i>
-							</a>
-						</li>
+
+					<!-- 다음 버튼 -->
+					<c:if test="${pageInfo.currentPageNum lt pageInfo.lastPageNum }">
+						<%-- 페이지 번호 : ${pageInfo.currentPageNum + 1 } --%>
+						<my:pageItem pageNum="${pageInfo.currentPageNum + 1 }">
+							<i class="fa-solid fa-angle-right"></i>
+						</my:pageItem>
+					
 					</c:if>
-					<c:if test="${pageInfo.currentPageNum lt pageInfo.lastPageNum - 9 }">
-						<li class="page-item">
-							<c:url value="/list" var="pageLink">
-								<c:param name="page" value="${pageInfo.currentPageNum + 10}"></c:param>
-								<c:if test="${not empty param.search }">
-									<c:param name="search" value="${param.search }"></c:param>
-								</c:if>
-							</c:url>
-							<a class="page-link" href="${pageLink }">
-								<i class="fa-solid fa-angles-right"></i>
-							</a>
-						</li>
-					</c:if>
+					<%-- 					<c:if test="${pageInfo.currentPageNum lt pageInfo.lastPageNum - 9 }"> --%>
+					<%-- 							<c:url value="/list" var="pageLink"> --%>
+					<%-- 								<c:param name="page" value="${pageInfo.currentPageNum + 10}"></c:param> --%>
+					<%-- 								<c:if test="${not empty param.search }"> --%>
+					<%-- 									<c:param name="search" value="${param.search }"></c:param> --%>
+					<%-- 								</c:if> --%>
+					<%-- 								<c:if test="${not empty param.type }"> --%>
+					<%-- 									<c:param name="type" value=${param.type }></c:param> --%>
+					<%-- 								</c:if> --%>
+					<%-- 							</c:url> --%>
+					<!-- 										<li class="page-item"> -->
+					<%-- 							<a class="page-link" href="${pageLink }"> --%>
+					<!-- 								<i class="fa-solid fa-angles-right"></i> -->
+					<!-- 							</a> -->
+					<!-- 						</li> -->
+					<%-- 					</c:if> --%>
 				</ul>
 			</nav>
 		</div>

@@ -23,16 +23,17 @@ public class BoardController {
 //	게시물 목록
 //	@RequestMapping(value = {"/", "list"}, method = RequestMethod.GET)
 	@GetMapping({ "/", "list" })
-	public String list(Model model,@RequestParam(value = "page", defaultValue = "1") Integer page,@RequestParam(value = "search", defaultValue = "") String search) {
+	public String list(Model model, @RequestParam(value = "page", defaultValue = "1") Integer page,
+			@RequestParam(value = "search", defaultValue = "") String search, 
+			@RequestParam(value = "type", required = false) String type) {
 		// 1. request param 수집/가공
 		// 2. business logic 처리
-		Map<String, Object> result = service.listBoard(page, search); // 페이지 처리
+		Map<String, Object> result = service.listBoard(page, search, type); // 페이지 처리
 		// 3. add attribute
 		model.addAttribute("boardList", result.get("boardList"));
 		model.addAttribute("pageInfo", result.get("pageInfo"));
 		// 4. forward/redirect
 		return "list";
-
 	}
 
 	@GetMapping("/id/{id}")
@@ -70,14 +71,14 @@ public class BoardController {
 			return "redirect:/modify/" + board.getId();
 		}
 	}
-	
+
 	@PostMapping("remove")
 	public String remove(Integer id, RedirectAttributes rttr) {
 		boolean ok = service.remove(id);
-		if(ok) {
+		if (ok) {
 			// query string에 추가
 //			rttr.addAttribute("success", "remove");
-			
+
 			// 모델에 추가
 			rttr.addFlashAttribute("message", id + "번 개시물이 삭제되었습니다.");
 			return "redirect:/list";
@@ -86,22 +87,20 @@ public class BoardController {
 			return "redirect:/modify/" + id;
 		}
 	}
-	
-	
+
 	// 인서트 만들기
-	
+
 	@GetMapping("add")
 	public void addForm() {
 		// 게시물 작성 form (view)로 포워드
 	}
-	
+
 	@PostMapping("add")
 	public String addProcess(Board board, RedirectAttributes rttr) {
 		// 새 게시물 db에 추가
 		boolean ok = service.add(board);
-		
-		
-		if(ok) {
+
+		if (ok) {
 //			rttr.addAttribute("success", "add");
 			rttr.addFlashAttribute("message", board.getId() + "번 게시물이 등록되었습니다.");
 			return "redirect:/id/" + board.getId();
@@ -110,6 +109,6 @@ public class BoardController {
 			rttr.addFlashAttribute("message", board.getId() + "번 게시물이 등록에 실패했습니다.");
 			return "redirect:/add";
 		}
-		
+
 	}
 }
