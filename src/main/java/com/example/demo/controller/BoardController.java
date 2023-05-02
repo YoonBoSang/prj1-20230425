@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.*;
 import org.springframework.stereotype.*;
 import org.springframework.ui.*;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.*;
 import org.springframework.web.servlet.mvc.support.*;
 
 import com.example.demo.domain.*;
@@ -23,15 +24,17 @@ public class BoardController {
 //	게시물 목록
 //	@RequestMapping(value = {"/", "list"}, method = RequestMethod.GET)
 	@GetMapping({ "/", "list" })
-	public String list(Model model, @RequestParam(value = "page", defaultValue = "1") Integer page,
+	public String list(Model model, 
+			@RequestParam(value = "page", defaultValue = "1") Integer page,
 			@RequestParam(value = "search", defaultValue = "") String search, 
 			@RequestParam(value = "type", required = false) String type) {
 		// 1. request param 수집/가공
 		// 2. business logic 처리
 		Map<String, Object> result = service.listBoard(page, search, type); // 페이지 처리
 		// 3. add attribute
-		model.addAttribute("boardList", result.get("boardList"));
-		model.addAttribute("pageInfo", result.get("pageInfo"));
+//		model.addAttribute("boardList", result.get("boardList"));
+//		model.addAttribute("pageInfo", result.get("pageInfo"));
+		model.addAllAttributes(result);
 		// 4. forward/redirect
 		return "list";
 	}
@@ -96,9 +99,11 @@ public class BoardController {
 	}
 
 	@PostMapping("add")
-	public String addProcess(Board board, RedirectAttributes rttr) {
+	public String addProcess(
+			@RequestParam("files") MultipartFile[] files,
+			Board board, RedirectAttributes rttr) throws Exception {
 		// 새 게시물 db에 추가
-		boolean ok = service.add(board);
+		boolean ok = service.add(board, files);
 
 		if (ok) {
 //			rttr.addAttribute("success", "add");
@@ -107,6 +112,7 @@ public class BoardController {
 		} else {
 //			rttr.addAttribute("fail", "addfail");
 			rttr.addFlashAttribute("message", board.getId() + "번 게시물이 등록에 실패했습니다.");
+			rttr.addFlashAttribute("board", board);
 			return "redirect:/add";
 		}
 
