@@ -30,6 +30,10 @@
 						<td>${list.id }</td>
 						<td>
 							<a href="/id/${list.id }"> ${list.title } </a>
+							<c:if test="${list.fileCount > 0 }">
+								<span class="badge text-bg-light">
+									<i class="fa-regular fa-image"></i>${list.fileCount }</span>
+							</c:if>
 						</td>
 						<td>${list.writer }</td>
 						<td>${list.inserted }</td>
@@ -78,7 +82,7 @@
 						<my:pageItem pageNum="${pageInfo.currentPageNum + 1 }">
 							<i class="fa-solid fa-angle-right"></i>
 						</my:pageItem>
-					
+
 					</c:if>
 					<%-- 					<c:if test="${pageInfo.currentPageNum lt pageInfo.lastPageNum - 9 }"> --%>
 					<%-- 							<c:url value="/list" var="pageLink"> --%>

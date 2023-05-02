@@ -30,8 +30,10 @@
 						<label for="bodyTextarea" class="form-label">본문</label>
 						<textarea rows="10" name="body" id="bodyTextarea" class="form-control"></textarea>
 					</div>
-					<div>
-						<input type="file" multiple name="files" accept="image/*" />
+
+					<div class="mb-3">
+						<label for="fileInput" class="form-label">그림 파일</label>
+						<input class="form-control" type="file" id="fileInput" name="files" accept="image/*" multiple >
 					</div>
 					<div class="mb-3">
 						<input class="btn btn-primary" type="submit" value="저장" />

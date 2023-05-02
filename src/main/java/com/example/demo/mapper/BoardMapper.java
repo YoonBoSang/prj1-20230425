@@ -64,11 +64,12 @@ public interface BoardMapper {
 			<bind name="pattern" value="'%' + search + '%'"/>
 			
 			SELECT
-				id,
-				title,
-				writer,
-				inserted
-			FROM Board
+				b.id,
+				b.title,
+				b.writer,
+				b.inserted,
+				COUNT(f.id) fileCount
+			FROM Board b LEFT JOIN FileNames f ON b.id = f.boardId
 			<where> 
 				<if test="type eq 'title' or type eq 'all'">
 				   title  LIKE #{pattern}
@@ -80,7 +81,8 @@ public interface BoardMapper {
 					OR writer LIKE #{pattern}
 				</if>
 			</where>
-			ORDER BY id DESC
+			GROUP BY b.id 
+			ORDER BY b.id DESC
 			LIMIT #{startIndex}, #{rowPerPage}
 			</script>
 			""")

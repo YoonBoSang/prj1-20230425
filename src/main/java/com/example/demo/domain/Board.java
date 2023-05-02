@@ -14,4 +14,6 @@ public class Board {
 	private String writer;
 	private List<String> fileName;
 	
+	private Integer fileCount;
+	
 }

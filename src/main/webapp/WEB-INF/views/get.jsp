@@ -31,10 +31,10 @@
 					</div>
 					<div class="mb-3">
 						<c:forEach items="${board.fileName}" var="fileName">
-							<div>
+							<div class=mb-3>
 								<!-- localhost:8080/image/4117/다운로드.png -->
 								<!-- localhost:8080/image/게시물번호/fileName -->
-								<img src="http://localhost:8080/image/${board.id }/${fileName}" alt="" />
+								<img src="http://localhost:8080/image/${board.id }/${fileName}" class="img-fluid img-thumbnail"alt="" />
 							</div>
 						</c:forEach>
 					</div>
