@@ -11,7 +11,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <body>
-	
+
 	<my:navBar></my:navBar>
 	<my:alert></my:alert>
 
@@ -19,25 +19,37 @@
 		<div class="row justify-content-center">
 			<div class="col-12 col-md-8 col-lg-6">
 
-				<h1>${board.id }번 게시물수정</h1>
+				<h1>${board.id }번게시물수정</h1>
 				<form method="post">
 					<input type="hidden" name="id" value="${board.id }" />
 					<div class="mb-3">
 						<label for="titleInput" class="form-label">제목</label>
-						<input type="text" class="form-control" id="titleInput" value=${board.title } name="title"/>
+						<input type="text" class="form-control" id="titleInput" value=${board.title } name="title" />
+					</div>
+					<!-- 첨부 그림 보이기 -->
+					<div class="mb-3">
+						<c:forEach items="${board.fileName}" var="fileName">
+							<input type="checkbox" name="removeFiles" value="${fileName }" id="" />
+							<div class=mb-3>
+								<!-- localhost:8080/image/4117/다운로드.png -->
+								<!-- localhost:8080/image/게시물번호/fileName -->
+								<img src="http://localhost:8080/image/${board.id }/${fileName}" class="img-fluid img-thumbnail" alt="" />
+							</div>
+						</c:forEach>
 					</div>
 					<div class="mb-3">
 						<label for="bodyTextarea" class="form-label">본문</label>
-						<textarea name="body" id="bodyTextarea" rows="10" class="form-control" >${board.body }</textarea>
+						<textarea name="body" id="bodyTextarea" rows="10" class="form-control">${board.body }</textarea>
 					</div>
 					<div class="mb-3">
 						<label for="writerInput" class="form-label">작성자</label>
-						<input type="text" class="form-control" id="writerInput" value=${board.writer } name="writer"/>
+						<input type="text" class="form-control" id="writerInput" value=${board.writer } name="writer" />
 					</div>
 					<div class="mb-3">
 						<label class="form-label">작성일시</label>
-						<input type="text" class="form-control" value=${board.inserted } readonly/>
+						<input type="text" class="form-control" value=${board.inserted } readonly />
 					</div>
+					
 					<div class="mb-3">
 						<input class="btn btn-secondary" type="submit" value="수정" />
 					</div>

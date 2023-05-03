@@ -27,14 +27,49 @@ public class BoardService {
 		return mapper.selectById(id);
 	}
 
-	public boolean modify(Board board) {
+	public boolean modify(Board board, List<String> removeFileNames) {
+		
+		//  FileName 테이블 삭제
+		if (removeFileNames != null && !removeFileNames.isEmpty()) {
+			for(String fileName : removeFileNames) {
+				// 하드디스크에서 삭제
+				String path = "C:\\study\\upload\\" + board.getId() + "\\" + fileName;
+				File file = new File(path);
+				if (file.exists()) {
+					file.delete();
+				}
+				
+				//테이블에서 삭제
+				mapper.deleteFileNamesByBoardIdANDFileName(board.getId(), fileName);
+			}
+		}
+		
+		// 게시물(Board) 테이블 수정
 		int cnt = mapper.update(board);
 		
 		return cnt == 1;
 	}
 
 	public boolean remove(Integer id) {
+		// 파일명 조회
+		List<String> fileNames = mapper.selectFileNamesByBoardId(id);
+		
+		// FileNames 테이블의 데이터 지우기
+		mapper.deleteFileNamesByBoardId(id);
+		
+		// 하드디스크의 파일 지우기
+		for (String fileName : fileNames) {
+			String path = "C:\\study\\upload\\" + id + "\\" + fileName;
+			File file = new File(path);
+			if (file.exists()) {
+				file.delete();
+			}
+		}
+		
+		// 게시물 테이블의 데이터 지우기
 		int cnt = mapper.deleteById(id);
+		
+		
 		return cnt == 1;
 	}
 
