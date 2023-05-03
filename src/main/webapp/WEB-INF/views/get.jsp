@@ -34,7 +34,8 @@
 							<div class=mb-3>
 								<!-- localhost:8080/image/4117/다운로드.png -->
 								<!-- localhost:8080/image/게시물번호/fileName -->
-								<img src="http://localhost:8080/image/${board.id }/${fileName}" class="img-fluid img-thumbnail"alt="" />
+								<c:set var="bucketUrl" value="https://bucket0503-65rg4e4b5dfz.s3.ap-northeast-2.amazonaws.com/board"></c:set>
+								<img src="${bucketUrl}/${board.id }/${fileName}" class="img-fluid img-thumbnail"alt="" />
 							</div>
 						</c:forEach>
 					</div>

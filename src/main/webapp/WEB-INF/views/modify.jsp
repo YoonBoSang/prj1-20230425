@@ -20,7 +20,7 @@
 			<div class="col-12 col-md-8 col-lg-6">
 
 				<h1>${board.id }번게시물수정</h1>
-				<form method="post">
+				<form method="post" enctype="multipart/form-data">
 					<input type="hidden" name="id" value="${board.id }" />
 					<div class="mb-3">
 						<label for="titleInput" class="form-label">제목</label>
@@ -49,7 +49,10 @@
 						<label class="form-label">작성일시</label>
 						<input type="text" class="form-control" value=${board.inserted } readonly />
 					</div>
-					
+					<div class="mb-3">
+						<label for="fileInput" class="form-label">그림 파일</label>
+						<input class="form-control" type="file" id="fileInput" name="files" accept="image/*" multiple >
+					</div>
 					<div class="mb-3">
 						<input class="btn btn-secondary" type="submit" value="수정" />
 					</div>

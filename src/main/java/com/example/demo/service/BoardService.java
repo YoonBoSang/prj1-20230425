@@ -11,9 +11,17 @@ import org.springframework.web.multipart.*;
 import com.example.demo.domain.*;
 import com.example.demo.mapper.*;
 
+import software.amazon.awssdk.services.s3.*;
+
 @Service
 @Transactional(rollbackFor = Exception.class)
 public class BoardService {
+	
+	@Autowired
+	private S3Client s3;
+	
+	@Value("${aws.s3.bucketName}")
+	private String bucketName;
 	
 	@Autowired
 	private BoardMapper mapper;
@@ -27,7 +35,7 @@ public class BoardService {
 		return mapper.selectById(id);
 	}
 
-	public boolean modify(Board board, List<String> removeFileNames) {
+	public boolean modify(Board board, List<String> removeFileNames, MultipartFile[] addFiles) throws Exception {
 		
 		//  FileName 테이블 삭제
 		if (removeFileNames != null && !removeFileNames.isEmpty()) {
@@ -41,6 +49,29 @@ public class BoardService {
 				
 				//테이블에서 삭제
 				mapper.deleteFileNamesByBoardIdANDFileName(board.getId(), fileName);
+			}
+		}
+		
+		// 새 파일 추가
+		for (MultipartFile newFile : addFiles) {
+			if (newFile.getSize() > 0) {
+				// 파일 저장 (파일 시스템에)
+				String fileName = newFile.getOriginalFilename();
+				String folder = "C:\\study\\upload\\" + board.getId();
+				String path = folder + "\\" + fileName;
+				
+				// 디렉토리 없으면 만들기
+				File dir = new File(folder);
+				if (!dir.exists()) {
+					dir.mkdirs();
+				}
+				
+				// 파일을 하드디스크에 저장
+				File file = new File(path);
+				newFile.transferTo(file);
+				// db에 관련 정보 저장(insert)
+				mapper.insertFileName(board.getId(), newFile.getOriginalFilename());
+				
 			}
 		}
 		
