@@ -11,35 +11,33 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <body>
-	<my:navBar current="add" />
+	<my:navBar></my:navBar>
+	<my:alert></my:alert>
 
 	<div class="container-lg">
 		<div class="row justify-content-center">
 			<div class="col-12 col-md-8 col-lg-6">
-				<h1>게시물 작성</h1>
-				<form method="post" enctype="multipart/form-data">
+				<h1>회원 가입</h1>
+				<form method="post" >
+<!-- 					.mb-3*5>(label.form-label[for]+input.form-control[name]) -->
 					<div class="mb-3">
-						<label for="titleInput" class="form-label">제목</label>
-						<input type="text" class="form-control" name="title" id="titleInput" />
+						<label for="inputId" class="form-label">ID</label>
+						<input id="inputId" type="text" class="form-control" name="id" value="${member.id }"/>
 					</div>
 					<div class="mb-3">
-						<label for="writerInput" class="form-label">작성자</label>
-						<input type="text" class="form-control" name="writer" id="writerInput" />
+						<label for="inputPassword" class="form-label">PASSWORD</label>
+						<input type="password" class="form-control" name="password" id="inputPassword" />
 					</div>
 					<div class="mb-3">
-						<label for="bodyTextarea" class="form-label">본문</label>
-						<textarea rows="10" name="body" id="bodyTextarea" class="form-control"></textarea>
-					</div>
-
-					<div class="mb-3">
-						<label for="fileInput" class="form-label">그림 파일</label>
-						<input class="form-control" type="file" id="fileInput" name="files" accept="image/*" multiple >
-						<div class="form-text">
-							총 10MB, 하나의 파일은 1MB를 초과할 수 없습니다. 
-						</div>
+						<label for="inputNickName" class="form-label">NICKNAME</label>
+						<input type="text" class="form-control" name="nickName" id="inputNickName" value="${member.nickName }"/>
 					</div>
 					<div class="mb-3">
-						<input class="btn btn-primary" type="submit" value="저장" />
+						<label for="inputEmail" class="form-label">Email</label>
+						<input type="email" class="form-control" name="email" id="inputEmail" value="${member.email }"/>
+					</div>
+					<div class="mb-3">
+						<input type="submit" class="btn btn-primary" name="가입" />
 					</div>
 				</form>
 			</div>

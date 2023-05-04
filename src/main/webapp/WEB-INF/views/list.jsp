@@ -14,7 +14,8 @@
 	<my:navBar current="list" />
 	<my:alert></my:alert>
 	<div class="container-lg">
-		<h1>게시물 목록 보기</h1>
+		<h1>게시물 목록</h1>
+		<!-- 새로 작성된 코드 -->
 		<table class="table">
 			<thead>
 				<tr>
