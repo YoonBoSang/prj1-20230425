@@ -29,6 +29,7 @@ public class MemberService {
 	}
 
 	public Member get(String id) {
-		return null;
+		
+		return mapper.selelctById(id);
 	}
 }

@@ -21,4 +21,10 @@ public interface MemberMapper {
 			""")
 	List<Member> selectAll();
 
+	@Select("""
+			SELECT * FROM Member
+			WHERE id = #{id}
+			""")
+	Member selelctById(String id);
+
 }

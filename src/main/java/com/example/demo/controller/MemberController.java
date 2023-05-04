@@ -51,9 +51,11 @@ public class MemberController {
 	
 	// 경로: /member/info?id=asdf
 	@GetMapping("info")
-	public void info(String id, Model model) {
+	public String info(String id, Model model) {
 		Member member = service.get(id);
+		
 		model.addAttribute("member", member);
+		return "/member/info";
 	}
 	
 }
