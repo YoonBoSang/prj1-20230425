@@ -32,4 +32,28 @@ public class MemberService {
 		
 		return mapper.selelctById(id);
 	}
+
+	public boolean remove(Member member) {
+		Member oldMember = mapper.selelctById(member.getId());
+		int cnt = 0;
+		
+		if (oldMember.getPassword().equals(member.getPassword())) {
+			// 암호가 같으면
+			
+			cnt = mapper.deleteById(member.getId());
+		}
+		
+		return cnt == 1;
+	}
+
+	public boolean modify(Member member, String oldPassword) {
+		Member oldMember = mapper.selelctById(member.getId());
+		
+		int cnt = 0;
+		if (oldMember.getPassword().equals(oldPassword)) {
+			cnt = mapper.update(member);
+		}
+		
+		return cnt == 1;
+	}
 }

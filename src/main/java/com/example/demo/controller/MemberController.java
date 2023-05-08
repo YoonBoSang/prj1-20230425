@@ -42,20 +42,52 @@ public class MemberController {
 	}
 	
 	@GetMapping("list")
-	public String list(Model model) {
+	public void list(Model model) {
 		List<Member> memberList = service.listMember();
 		
-		model.addAttribute(memberList);
-		return "/member/list";
+		model.addAttribute("memberList", memberList);
+		
 	}
 	
 	// 경로: /member/info?id=asdf
 	@GetMapping("info")
-	public String info(String id, Model model) {
+	public void info(String id, Model model) {
 		Member member = service.get(id);
 		
 		model.addAttribute("member", member);
-		return "/member/info";
 	}
 	
+	@PostMapping("remove")
+	public String remove(Member member, RedirectAttributes rttr) {
+		boolean ok = service.remove(member);
+		
+		if(ok) {
+			rttr.addFlashAttribute("message", "회원 탈퇴하였습니다.");
+			return "redirect:/list";
+		} else {
+			rttr.addFlashAttribute("message", "회원 탈퇴시 문제가 발생하였습니다.");
+			return "redirect:/member/info?id=" + member.getId();
+		}
+	}
+	
+	@GetMapping("modify")
+	public void modifyForm(String id, Model model) {
+		Member member = service.get(id);
+		model.addAttribute("member", member);
+//		model.addAttribute(service.get(id));
+	}
+	
+	@PostMapping("modify")
+	public String modifyProcess(Member member, String oldPassword, RedirectAttributes rttr) {
+		boolean ok = service.modify(member, oldPassword);
+		
+		if(ok) {
+			rttr.addFlashAttribute("message", "회원 정보가 수정되었습니다.");
+			return "redirect:/member/info?id=" + member.getId();
+		} else {
+			rttr.addFlashAttribute("message", "회원 정보 수정시 문제가 발생하였습니다");
+			return "redirect:/member/modify?id=" + member.getId();
+		}
+	}
+	 
 }
