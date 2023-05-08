@@ -34,12 +34,17 @@ public interface MemberMapper {
 	int deleteById(String id);
 
 	@Update("""
+			<script>
 			UPDATE Member
-			SET password = #{password},
+			SET 
+				<if test="password neq null and password neq ''">
+				password = #{password},
+				</if>
 				nickName = #{nickName},
 				email = #{email}
 			WHERE
 				id = #{id}
+			</script>
 			""")
 	int update(Member member);
 
