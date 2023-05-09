@@ -37,11 +37,11 @@ public class MemberService {
 
 	public Member get(String id) {
 		
-		return mapper.selelctById(id);
+		return mapper.selectById(id);
 	}
 
 	public boolean remove(Member member) {
-		Member oldMember = mapper.selelctById(member.getId());
+		Member oldMember = mapper.selectById(member.getId());
 		int cnt = 0;
 		
 		if (passwordEncoder.matches(member.getPassword(), oldMember.getPassword())) {
@@ -62,7 +62,7 @@ public class MemberService {
 			member.setPassword(passwordEncoder.encode(plain));
 		}
 		
-		Member oldMember = mapper.selelctById(member.getId());
+		Member oldMember = mapper.selectById(member.getId());
 		
 		int cnt = 0;
 		if (passwordEncoder.matches(oldPassword, oldMember.getPassword())) {

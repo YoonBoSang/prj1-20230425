@@ -25,7 +25,7 @@ public interface MemberMapper {
 			SELECT * FROM Member
 			WHERE id = #{id}
 			""")
-	Member selelctById(String id);
+	Member selectById(String id);
 
 	@Delete("""
 			DELETE FROM Member
