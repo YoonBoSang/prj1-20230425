@@ -4,6 +4,7 @@ import java.util.*;
 
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.security.access.prepost.*;
+import org.springframework.security.core.*;
 import org.springframework.stereotype.*;
 import org.springframework.ui.*;
 import org.springframework.web.bind.annotation.*;
@@ -52,7 +53,7 @@ public class BoardController {
 	}
 
 	@GetMapping("/modify/{id}")
-	@PreAuthorize("isAuthenticated()")
+	@PreAuthorize("isAuthenticated() and @customSecurityChecker.checkBoardWriter(authentication, #id)")
 	public String modify(@PathVariable("id") Integer id, Model model) {
 		model.addAttribute("board", service.getBoard(id));
 		return "modify";
@@ -60,7 +61,8 @@ public class BoardController {
 
 //	@RequestMapping(value = "/modify/{id}", method = RequestMethod.POST)
 	@PostMapping("/modify/{id}")
-	@PreAuthorize("isAuthenticated()")
+	@PreAuthorize("isAuthenticated() and @customSecurityChecker.checkBoardWriter(authentication, #board.id)")
+	// 수정하려는 게시물 id : board.getId
 	public String modifyProcess(Board board, 
 			@RequestParam(value = "removeFiles", required = false) List<String> removeFileNames,
 			@RequestParam(value = "files", required = false) MultipartFile[] addFiles,
@@ -82,7 +84,7 @@ public class BoardController {
 	}
 
 	@PostMapping("remove")
-	@PreAuthorize("isAuthenticated()")
+	@PreAuthorize("isAuthenticated() and @customSecurityChecker.checkBoardWriter(authentication, #id)")
 	public String remove(Integer id, RedirectAttributes rttr) {
 		boolean ok = service.remove(id);
 		if (ok) {
@@ -110,8 +112,10 @@ public class BoardController {
 	@PreAuthorize("isAuthenticated()")
 	public String addProcess(
 			@RequestParam("files") MultipartFile[] files,
-			Board board, RedirectAttributes rttr) throws Exception {
+			Board board, RedirectAttributes rttr,
+			Authentication authentication) throws Exception {
 		// 새 게시물 db에 추가
+		board.setWriter(authentication.getName());
 		boolean ok = service.add(board, files);
 
 		if (ok) {

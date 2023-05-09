@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="jakarta.tags.core"%>
 <%@ taglib prefix="my" tagdir="/WEB-INF/tags"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -21,10 +22,6 @@
 					<div class="mb-3">
 						<label for="titleInput" class="form-label">제목</label>
 						<input type="text" class="form-control" name="title" id="titleInput" />
-					</div>
-					<div class="mb-3">
-						<label for="writerInput" class="form-label">작성자</label>
-						<input type="text" class="form-control" name="writer" id="writerInput" />
 					</div>
 					<div class="mb-3">
 						<label for="bodyTextarea" class="form-label">본문</label>
