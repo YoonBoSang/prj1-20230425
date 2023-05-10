@@ -3,6 +3,7 @@ package com.example.demo.security;
 import java.util.*;
 
 import org.springframework.beans.factory.annotation.*;
+import org.springframework.security.core.authority.*;
 import org.springframework.security.core.userdetails.*;
 import org.springframework.stereotype.*;
 
@@ -22,10 +23,16 @@ public class CustomUserDetailsService implements UserDetailsService {
 			throw new UsernameNotFoundException(username + " 회원이 없습니다.");
 		}
 
+//		List<SimpleGrantedAuthority> authorityList = new ArrayList<>();
+//		
+//		for(String auth : member.getAuthority()) {
+//			authorityList.add(new SimpleGrantedAuthority(auth));
+//		}
+		
 		UserDetails user = User.builder()
 				.username(member.getId())
 				.password(member.getPassword())
-				.authorities(List.of())
+				.authorities(member.getAuthority().stream().map(SimpleGrantedAuthority::new).toList())
 				.build();
 
 		return user;

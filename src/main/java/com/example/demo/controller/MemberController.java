@@ -12,14 +12,15 @@ import org.springframework.web.servlet.mvc.support.*;
 import com.example.demo.domain.*;
 import com.example.demo.service.*;
 
+import jakarta.servlet.*;
+import jakarta.servlet.http.*;
+
 @Controller
 @RequestMapping("member")
 public class MemberController {
 
 	@Autowired
 	private MemberService service;
-
-//	private MemberMapper mapper;
 
 	@GetMapping("signup")
 	@PreAuthorize("isAnonymous()")
@@ -51,16 +52,18 @@ public class MemberController {
 	}
 	
 	@GetMapping("list")
+	@PreAuthorize("hasAuthority('admin')")
 	public void list(Model model) {
 		List<Member> memberList = service.listMember();
 		
 		model.addAttribute("memberList", memberList);
 		
+		
 	}
 	
 	// 경로: /member/info?id=asdf
 	@GetMapping("info")
-	@PreAuthorize("isAuthenticated()")
+	@PreAuthorize("isAuthenticated() and ((authentication.name eq #id) or (hasAuthority('admin')))")
 	public void info(String id, Model model) {
 		Member member = service.get(id);
 		
@@ -68,12 +71,15 @@ public class MemberController {
 	}
 	
 	@PostMapping("remove")
-	@PreAuthorize("isAuthenticated()")
-	public String remove(Member member, RedirectAttributes rttr) {
+	@PreAuthorize("isAuthenticated() and (authentication.name eq #member.id)")
+	public String remove(Member member, RedirectAttributes rttr, HttpServletRequest request) throws Exception {
 		boolean ok = service.remove(member);
 		
 		if(ok) {
 			rttr.addFlashAttribute("message", "회원 탈퇴하였습니다.");
+			
+			request.logout();
+			
 			return "redirect:/list";
 		} else {
 			rttr.addFlashAttribute("message", "회원 탈퇴시 문제가 발생하였습니다.");
@@ -82,7 +88,7 @@ public class MemberController {
 	}
 	
 	@GetMapping("modify")
-	@PreAuthorize("isAuthenticated()")
+	@PreAuthorize("isAuthenticated() and (authentication.name eq #id)")
 	public void modifyForm(String id, Model model) {
 		Member member = service.get(id);
 		model.addAttribute("member", member);
@@ -90,7 +96,7 @@ public class MemberController {
 	}
 	
 	@PostMapping("modify")
-	@PreAuthorize("isAuthenticated()")
+	@PreAuthorize("isAuthenticated() and (authentication.name eq #member.id)")
 	public String modifyProcess(Member member, String oldPassword, RedirectAttributes rttr) {
 		boolean ok = service.modify(member, oldPassword);
 		

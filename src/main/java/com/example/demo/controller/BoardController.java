@@ -68,6 +68,7 @@ public class BoardController {
 			@RequestParam(value = "files", required = false) MultipartFile[] addFiles,
 			RedirectAttributes rttr) throws Exception {
 		
+		
 		boolean ok = service.modify(board, removeFileNames, addFiles);
 
 		if (ok) {

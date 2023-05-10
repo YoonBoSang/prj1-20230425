@@ -19,7 +19,6 @@
 
 
 	<div class="container-lg">
-
 		<div class="row justify-content-center">
 			<div class="col-12 col-md-8 col-lg-6">
 

@@ -29,6 +29,18 @@
 						<input type="password" class="form-control" name="password" id="inputPassword" />
 					</div>
 					<div class="mb-3">
+						<label for="inputPasswordCheck" class="form-label">PASSWORD CHECK</label>
+						<input type="password" class="form-control" id="inputPasswordCheck" />
+					</div>
+					<div class="form-text d-none text-primary" id="passwordSuccessText">
+						<i class="fa-solid fa-check"></i>
+						패스워드 일치
+					</div>
+					<div class="form-text d-none text-danger" id="passwordFailText">
+						<i class="fa-solid fa-triangle-exclamation"></i>
+						패스워드 불일치
+					</div>
+					<div class="mb-3">
 						<label for="inputNickName" class="form-label">NICKNAME</label>
 						<input type="text" class="form-control" name="nickName" id="inputNickName" value="${member.nickName }"/>
 					</div>
@@ -37,7 +49,7 @@
 						<input type="email" class="form-control" name="email" id="inputEmail" value="${member.email }"/>
 					</div>
 					<div class="mb-3">
-						<input type="submit" class="btn btn-primary" name="가입" />
+						<input type="submit" class="btn btn-primary disabled" name="가입" id="signupSubmit"/>
 					</div>
 				</form>
 			</div>
@@ -45,5 +57,9 @@
 	</div>
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js" integrity="sha512-pumBsjNRGGqkPzKHndZMaAG+bir374sORyzM3uulLV14lN5LyykqNk8eEeUlUkB3U0M4FApyaHraT65ihJhDpQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+	
+	<script src="/js/member/signup.js"></script>
+
+	
 </body>
 </html>

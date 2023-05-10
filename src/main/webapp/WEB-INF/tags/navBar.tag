@@ -26,9 +26,14 @@
 						<a class="nav-link ${current eq 'signup' ? 'active' : '' }" href="/member/signup">회원가입</a>
 					</li>
 				</sec:authorize>
-				<sec:authorize access="${logined }">
+				<sec:authorize access="hasAuthority('admin')">
 					<li class="nav-item">
 						<a class="nav-link ${current eq 'list' ? 'active' : '' }" href="/member/list">회원목록</a>
+					</li>
+				</sec:authorize>
+				<sec:authorize access="${logined }">
+					<li class="nav-item">
+						<a class="nav-link ${current eq 'memberInfo' ? 'active' : '' }" href="/member/info?id=<sec:authentication property="name" />"> 회원정보</a>
 					</li>
 				</sec:authorize>
 				<sec:authorize access="${logout }">
@@ -61,7 +66,3 @@
 		</div>
 	</div>
 </nav>
-
-<div>
-	<sec:authentication property="principal" />
-</div>
