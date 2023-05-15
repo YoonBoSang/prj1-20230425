@@ -18,16 +18,24 @@
 		<div class="row justify-content-center">
 			<div class="col-12 col-md-8 col-lg-6">
 				<h1>회원 가입</h1>
-				<form method="post" >
-<!-- 					.mb-3*5>(label.form-label[for]+input.form-control[name]) -->
+				<form method="post">
+					<!-- 					.mb-3*5>(label.form-label[for]+input.form-control[name]) -->
 					<div class="mb-3">
 						<label for="inputId" class="form-label">ID</label>
-						<input id="inputId" type="text" class="form-control" name="id" value="${member.id }"/>
-						
-						<div id="availableIdMessage">사용가능한 ID입니다.</div>
-						<div id="notAvailableIdMessage">사용 불가능한 ID입니다.</div>
-						
-						<button type="button" id="checkIdBtn">중복확인</button>
+						<div class="input-group">
+							<input id="inputId" type="text" class="form-control" name="id" value="${member.id }" />
+							<button type="button" id="checkIdBtn" class="btn btn-outline-secondary">중복확인</button>
+						</div>
+
+						<div id="availableIdMessage" class="form-text d-none text-primary">
+							<i class="fa-solid fa-check"></i>
+							사용가능한 ID입니다.
+						</div>
+						<div id="notAvailableIdMessage" class="form-text d-none text-danger">
+							<i class="fa-solid fa-triangle-exclamation"></i>
+							사용 불가능한 ID입니다.
+						</div>
+
 					</div>
 					<div class="mb-3">
 						<label for="inputPassword" class="form-label">PASSWORD</label>
@@ -47,14 +55,39 @@
 					</div>
 					<div class="mb-3">
 						<label for="inputNickName" class="form-label">NICKNAME</label>
-						<input type="text" class="form-control" name="nickName" id="inputNickName" value="${member.nickName }"/>
+						<div class="input-group">
+							<input type="text" class="form-control" name="nickName" id="inputNickName" value="${member.nickName }" />
+							<button type="button" id="checkNickNameBtn" class="btn btn-outline-secondary">중복확인</button>
+						</div>
+
+						<div id="availableNickNameMessage" class="form-text d-none text-primary">
+							<i class="fa-solid fa-check"></i>
+							사용 가능한 별명입니다.
+						</div>
+						<div id="notAvailableNickNameMessage" class="form-text d-none text-danger">
+							<i class="fa-solid fa-triangle-exclamation"></i>
+							사용 불가능한 별명입니다.
+						</div>
+
 					</div>
 					<div class="mb-3">
 						<label for="inputEmail" class="form-label">Email</label>
-						<input type="email" class="form-control" name="email" id="inputEmail" value="${member.email }"/>
+						<div class="input-group">
+							<input type="email" class="form-control" name="email" id="inputEmail" value="${member.email }" />
+							<button type="button" id="checkEmailBtn" class="btn btn-outline-secondary">중복확인</button>
+						</div>
+
+						<div id="availableEmailMessage" class="form-text d-none text-primary">
+							<i class="fa-solid fa-check"></i>
+							사용 가능한 이메일입니다.
+						</div>
+						<div id="notAvailableEmailMessage" class="form-text d-none text-danger">
+							<i class="fa-solid fa-triangle-exclamation"></i>
+							사용 불가능한 이메일입니다.
+						</div>
 					</div>
 					<div class="mb-3">
-						<input type="submit" class="btn btn-primary disabled" name="가입" id="signupSubmit"/>
+						<input type="submit" class="btn btn-primary" name="가입" id="signupSubmit" disabled />
 					</div>
 				</form>
 			</div>
@@ -62,9 +95,9 @@
 	</div>
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js" integrity="sha512-pumBsjNRGGqkPzKHndZMaAG+bir374sORyzM3uulLV14lN5LyykqNk8eEeUlUkB3U0M4FApyaHraT65ihJhDpQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-	
+
 	<script src="/js/member/signup.js"></script>
 
-	
+
 </body>
 </html>

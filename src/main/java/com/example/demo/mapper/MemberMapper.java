@@ -14,7 +14,7 @@ public interface MemberMapper {
 			VALUES (#{id}, #{password}, #{nickName}, #{email})
 			""")
 	int insert(Member member);
-	
+
 	@Select("""
 			SELECT * FROM Member
 			ORDER BY inserted DESC;
@@ -22,13 +22,27 @@ public interface MemberMapper {
 	List<Member> selectAll();
 
 	@Select("""
-			SELECT * 
+			SELECT *
 			FROM Member m LEFT JOIN MemberAuthority ma
 			ON m.id = ma.memberId
 			WHERE id = #{id}
 			""")
 	@ResultMap("memberMap")
 	Member selectById(String id);
+
+	@Select("""
+			SELECT *
+			FROM Member
+			WHERE nickName = #{nickName}
+			""")
+	Member selectByNickName(String nickName);
+	
+	@Select("""
+			SELECT * 
+			FROM Member
+			WHERE email = #{email}
+			""")
+	Member selectByEmail(String email);
 
 	@Delete("""
 			DELETE FROM Member
@@ -39,7 +53,7 @@ public interface MemberMapper {
 	@Update("""
 			<script>
 			UPDATE Member
-			SET 
+			SET
 				<if test="password neq null and password neq ''">
 				password = #{password},
 				</if>
