@@ -2,7 +2,6 @@ let checkId = false;
 let checkEmail = false;
 let checkNickName = false;
 let checkPassword = false;
-let pattern_email = /^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]+$/;
 
 function enableSubmit() {
 	if (checkId && checkEmail && checkNickName && checkPassword) {
@@ -14,23 +13,23 @@ function enableSubmit() {
 
 $("#inputId").keyup(function()  {
 	checkId =false;
-	$("#availabledIdMessage").addClass("d-none");
-	$("#notAvailabledIdMessage").addClass("d-none");
+	$("#availableIdMessage").addClass("d-none");
+	$("#notAvailableIdMessage").addClass("d-none");
 	
 	enableSubmit();
 
 $("#inputNickName").keyup(function() {
 	checkNickName =false;
-	$("#availabledNickNameMessage").addClass("d-none");
-	$("#notAvailabledNickNameMessage").addClass("d-none");
+	$("#availableNickNameMessage").addClass("d-none");
+	$("#notAvailableNickNameMessage").addClass("d-none");
 	
 	enableSubmit();
 })
 
 $("#inputEmail").keyup(function() {
 	checkEmail =false;
-	$("#availabledEmailMessage").addClass("d-none");
-	$("#notAvailabledEmailMessage").addClass("d-none");
+	$("#availableEmailMessage").addClass("d-none");
+	$("#notAvailableEmailMessage").addClass("d-none");
 	
 	enableSubmit();
 })
@@ -85,15 +84,18 @@ $("#checkNickNameBtn").click(function() {
 // 이메일 중복확인 버튼이 클릭되면
 $("#checkEmailBtn").click(function() {
 	const email = $("#inputEmail").val();
+	var regExp = /\w+([-+.]\w+)*@\w+([-.]\w+)*\.[a-zA-Z]{2,4}$/;
 	$.ajax("/member/checkEmail/" + email, {
 		success: function(data) {
 			
-			if (data.available) {
+			if (data.available && regExp.test(email)) {
 				$("#availableEmailMessage").removeClass("d-none");
 				$("#notAvailableEmailMessage").addClass("d-none");
+				checkEmail = true;
 			} else {
 				$("#availableEmailMessage").addClass("d-none");
 				$("#notAvailableEmailMessage").removeClass("d-none");
+				checkEmail = false;
 			}
 		},
 		complete: enableSubmit
