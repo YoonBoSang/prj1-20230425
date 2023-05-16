@@ -16,6 +16,8 @@ $("#likeIcon").click(function() {
 			} else {
 				$("#likeIcon").html(`<i class="fa-regular fa-heart"></i>`);
 			}
+			// 좋아요 수 없데이트
+			$("#likeNumber").text(data.count);
 		},
 		error: function(jqXHR) {
 //			console.log("좋아요 실패");

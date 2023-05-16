@@ -68,7 +68,8 @@ public interface BoardMapper {
 				b.title,
 				b.writer,
 				b.inserted,
-				COUNT(f.id) fileCount
+				COUNT(f.id) fileCount,
+				(SELECT COUNT(*) FROM BoardLike WHERE boardId = b.id) likeCount
 			FROM Board b LEFT JOIN FileNames f ON b.id = f.boardId
 			<where> 
 				<if test="type eq 'title' or type eq 'all'">
@@ -138,6 +139,8 @@ public interface BoardMapper {
 			WHERE writer = #{writer}
 			""")
 	List<Integer> selectIdByWriter(String writer);
+
+
 
 
 	
