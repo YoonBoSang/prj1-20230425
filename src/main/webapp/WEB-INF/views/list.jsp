@@ -20,6 +20,7 @@
 			<thead>
 				<tr>
 					<th>#</th>
+					<th><i class="fa-solid fa-heart"></i></th>
 					<th>제목</th>
 					<th>글쓴이</th>
 					<th>작성된 시각</th>
@@ -29,6 +30,7 @@
 				<c:forEach items="${boardList }" var="list">
 					<tr>
 						<td>${list.id }</td>
+						<td>${list.likeCount }</td>
 						<td>
 							<a href="/id/${list.id }"> ${list.title } </a>
 							<c:if test="${list.fileCount > 0 }">

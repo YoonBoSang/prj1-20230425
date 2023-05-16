@@ -27,7 +27,8 @@ public interface BoardMapper {
 			 	b.body,
 			 	b.writer,
 			 	b.inserted,
-			 	f.fileName
+			 	f.fileName,
+			 	(SELECT COUNT(*) FROM BoardLike WHERE boardId = b.id) likeCount
 			FROM Board b LEFT JOIN FileNames f ON b.id = f.boardId
 			WHERE b.id = #{id}
 			""")

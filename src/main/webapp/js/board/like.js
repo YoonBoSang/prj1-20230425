@@ -1,3 +1,5 @@
+const toast = new bootstrap.Toast(document.querySelector("#liveToast"));
+
 $("#likeIcon").click(function() {
 	// 게시물 번호 request body에 추가
 	const boardId = $("#boardIdText").text().trim();
@@ -14,6 +16,14 @@ $("#likeIcon").click(function() {
 			} else {
 				$("#likeIcon").html(`<i class="fa-regular fa-heart"></i>`);
 			}
+		},
+		error: function(jqXHR) {
+//			console.log("좋아요 실패");
+//			console.log(jqXHR);
+//			console.log(jqXHR.responseJSON)
+//			$("body").prepend(jqXHR.responseJSON.message);
+			$(".toast-body").text(jqXHR.responseJSON.message);
+			toast.show();
 		}
 		
 //		success:,
