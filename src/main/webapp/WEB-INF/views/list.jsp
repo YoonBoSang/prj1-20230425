@@ -20,7 +20,9 @@
 			<thead>
 				<tr>
 					<th>#</th>
-					<th><i class="fa-solid fa-heart"></i></th>
+					<th>
+						<i class="fa-solid fa-heart"></i>
+					</th>
 					<th>제목</th>
 					<th>글쓴이</th>
 					<th>작성된 시각</th>
@@ -36,6 +38,13 @@
 							<c:if test="${list.fileCount > 0 }">
 								<span class="badge text-bg-light">
 									<i class="fa-regular fa-image"></i>${list.fileCount }</span>
+							</c:if>
+
+							<c:if test="${board.commentCount > 0 }">
+								<span class="badge rounded-pill text-bg-dark">
+									<i class="fa-regular fa-comments"></i>
+									${board.commentCount }
+								</span>
 							</c:if>
 						</td>
 						<td>${list.writer }</td>

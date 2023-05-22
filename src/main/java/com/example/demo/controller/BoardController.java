@@ -56,8 +56,8 @@ public class BoardController {
 
 	@GetMapping("/modify/{id}")
 	@PreAuthorize("isAuthenticated() and @customSecurityChecker.checkBoardWriter(authentication, #id)")
-	public String modify(@PathVariable("id") Integer id, Model model) {
-		model.addAttribute("board", service.getBoard(id));
+	public String modify(@PathVariable("id") Integer id, Model model, Authentication authentication) {
+		model.addAttribute("board", service.getBoard(id, authentication));
 		return "modify";
 	}
 
