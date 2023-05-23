@@ -19,7 +19,7 @@ public interface CommentMapper {
 
 	@Insert("""
 			INSERT INTO Comment (boardId, content, memberId)
-			VALUES (#{boardId}, #{content}, #{memberId})
+			VALUES (#{boardId}, #{content} , #{memberId})
 			""")
 	Integer insert(Comment comment);
 
@@ -44,6 +44,18 @@ public interface CommentMapper {
 				id = #{id}
 			""")
 	int update(Comment comment);
+
+	@Delete("""
+			DELETE FROM Comment
+			WHERE boardId = #{boardId}
+			""")
+	Integer deleteByBoardId(Integer boardId);
+
+	@Delete("""
+			DELETE FROM Comment
+			WHERE memberId = #{memberId}
+			""")
+	Integer deleteByMemberId(String memberId);
 	
 	
 }
