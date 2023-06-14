@@ -98,8 +98,8 @@
 							<div id="addCommentContainer" class="mb-3">
 								<div class="input-group">
 									<div class="form-floating">
-									<textarea style="height: 97px" placeholder="댓글을 남겨주세요" id="commentTextArea" class="form-control"></textarea>
-									<label for="floatingTextarea">댓글을 남겨주세요</label>
+										<textarea style="height: 97px" placeholder="댓글을 남겨주세요" id="commentTextArea" class="form-control"></textarea>
+										<label for="floatingTextarea">댓글을 남겨주세요</label>
 									</div>
 									<button id="sendCommentBtn" class="btn btn-outline-primary">
 										<i class="fa-regular fa-paper-plane"></i>
